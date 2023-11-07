@@ -1,19 +1,19 @@
 import React from "react";
-import styles from './Slider.module.scss';
+import styles from './Slider.scss';
 import {Carousel} from "react-bootstrap";
 
 const data = [
     {
         image: require('../../accets/img/baldurs-gate.jpg'),
-        caption: "Baldurgs Gate 3"
+        caption: "Baldurs Gate 3"
     },
     {
         image: require('../../accets/img/cyberpunk2077.jpg'),
-        caption: "Cyberpunk2077"
+        caption: "Cyberpunk 2077"
     },
     {
-        image: require('../../accets/img/baldurs-gate.jpg'),
-        caption: "Baldurgs Gate 3"
+        image: require('../../accets/img/stalker2.jpg'),
+        caption: "Stalker 2"
     }
 ]
 
@@ -24,12 +24,12 @@ export const Slider = () => {
     }
 
     return (
-        <div className={`container`}>
-            <Carousel activeIndex={index} onSelect={handleSelect}>
+        <div className={`container`} id="game_carousel">
+            <Carousel activeIndex={index} onSelect={handleSelect} className={`${styles.carouselInner}`}>
                 {data.map((slide, i) => {
                     return (
-                        <Carousel.Item>
-                            <img className={`d-block w-100`} src={slide.image} alt={`slider image`}/>
+                        <Carousel.Item className={`${styles.carouselItem}`} key={i}>
+                            <img className={`d-block w-100`} src={slide.image} alt={`${slide.caption}`}/>
                             <Carousel.Caption>
                                 <h3>
                                     {slide.caption}

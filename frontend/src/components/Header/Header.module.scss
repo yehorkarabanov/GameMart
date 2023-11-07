@@ -35,7 +35,7 @@ header {
     position: relative;
   }
 
-  a, a:focus, .navbarSearch {
+  a, a:focus, .navbarSearch, button {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -49,10 +49,18 @@ header {
     white-space: nowrap;
     transition: 0.3s;
 
+    &:hover {
+      color: rgba(black, 0.6);
+    }
+
     box-icon {
       font-size: 12px;
       line-height: 0;
       margin-left: 5px;
+
+      &:hover svg {
+        color: rgba(black, 0.6);
+      }
     }
   }
 

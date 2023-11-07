@@ -1,0 +1,17 @@
+.modalHeaderButtons {
+  width: 100%;
+
+  label {
+    transition: all 0.5s ease-in-out;
+    color: black !important;
+  }
+
+  label:hover, input[type=radio]:checked + label {
+    background-color: rgba(black, 0.8) !important;
+    color: white !important;
+  }
+
+  & + button[type=button]:focus {
+    box-shadow: none !important;
+  }
+}
