@@ -1,0 +1,13 @@
+.gridContainer {
+  display: grid;
+  grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-rows: auto;
+  gap: 20px;
+  justify-content: space-around;
+
+  img {
+    width: 251px;
+    height: 251px;
+    object-fit: cover;
+  }
+}

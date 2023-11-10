@@ -16,7 +16,6 @@ export const Header = () => {
     const handleMobileNavToggle = () => setIsMobileNavOpen(!isMobileNavOpen);
 
     useEffect(() => {
-        console.log(1213);
         if (user.isLogin) {
             dispatch(checkTokens());
         }
