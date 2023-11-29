@@ -1,9 +1,23 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {clearLike, clearLikeSlice} from "./likeSlice";
+import {useDispatch} from "react-redux";
+import apiInstance from "../../utils/axios";
 
-export const checkTokens = createAsyncThunk('user/checkTokens', async (params, {dispatch, getState}) => {
+export const checkRToken = createAsyncThunk('user/checkRToken', async (params, {dispatch, getState}) => {
     const state = getState();
     if (JSON.parse(atob(state.user.refresh.split('.')[1])).exp < Math.floor(Date.now() / 1000)) {
         dispatch(logOut());
+    }
+});
+
+export const checkAToken = createAsyncThunk('user/checkAToken', async (params, {dispatch, getState}) => {
+    await dispatch(checkRToken());
+    const state = getState();
+    if (JSON.parse(atob(state.user.access.split('.')[1])).exp < Math.floor(Date.now() / 1000)) {
+        const res = await apiInstance.post("account/login/refresh", {
+            refresh: state.user.refresh,
+        });
+        dispatch(setTokens(res.data));
     }
 });
 
@@ -40,20 +54,19 @@ const userSlice = createSlice({
             };
             state.isLogin = false;
         }
-    },
-    extraReducers: (builder) => {
+    }, extraReducers: (builder) => {
         builder
-            .addCase(checkTokens.pending, (state) => {
+            .addCase(checkRToken.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(checkTokens.fulfilled, (state) => {
+            .addCase(checkRToken.fulfilled, (state) => {
                 state.loading = false;
             })
-            .addCase(checkTokens.rejected, (state) => {
+            .addCase(checkRToken.rejected, (state) => {
                 state.loading = false;
             })
-
     },
+
 });
 
 export const {setTokens, logOut} = userSlice.actions;

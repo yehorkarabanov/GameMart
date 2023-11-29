@@ -3,17 +3,41 @@ import styles from './LoginModal.module.scss'
 import {Button, Form, Modal, Row, ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
 import * as yup from 'yup'
 import {Formik} from "formik";
-import apiInstance from "../../utils/axios";
-import {useDispatch} from "react-redux";
+import apiInstance, {apiLoginInstance} from "../../utils/axios";
+import {useDispatch, useSelector} from "react-redux";
 import {setTokens} from "../../redux/slices/userSlice";
+import {addManyItems} from "../../redux/slices/likeSlice";
 
 
 export const LoginModal = ({showLoginModal, setShowLoginModal}) => {
     const [isButtonClicked, setIsButtonCliced] = React.useState(false);
+    const Likes = useSelector(state => state.like.items);
     const chnageButtonClicked = () => {
         setIsButtonCliced(true);
     };
     const dispatch = useDispatch();
+
+    const loadLikeFromBackend = async () => {
+        const instance = await apiLoginInstance();
+        if (instance != null) {
+            try {
+                const res = await instance.get("like/like/");
+                await dispatch(addManyItems(res.data));
+            } catch (e) {
+                console.log("error with getting like");
+            }
+            const oldLike = Likes.filter(obj => obj.isNew !== true);
+            console.log(oldLike);
+            if (oldLike.length !== 0) {
+                try {
+                    const res = await instance.post("like/like/", oldLike.map(game => ({game:game.pk})));
+                } catch (e) {
+                    console.log("error with sinding like");
+                }
+            }
+        }
+    }
+
 
     const loginSchema = yup.object().shape({
         username: yup.string().required("Please input a username"),
@@ -26,6 +50,8 @@ export const LoginModal = ({showLoginModal, setShowLoginModal}) => {
                         password: value
                     });
                     dispatch(setTokens(response.data));
+
+                    await loadLikeFromBackend();
                     return true;
                 } catch (error) {
                     console.log(error);
@@ -67,6 +93,7 @@ export const LoginModal = ({showLoginModal, setShowLoginModal}) => {
                             password: value
                         });
                         dispatch(setTokens(response.data));
+                        await loadLikeFromBackend();
                         setIsButtonCliced(false);
                         return true;
                     } catch (error) {

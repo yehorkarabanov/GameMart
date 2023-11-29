@@ -1,13 +1,13 @@
 import React from "react";
-import {Footer} from "../components/Footer";
 import {Header} from "../components/Header";
-import {UserBlock} from "../components/UserBlock";
+import {Footer} from "../components/Footer";
+import {LikeBlock} from "../components/LikeBlock";
 
-export const Account = () => {
+export const Like = () => {
     return (
         <>
             <Header/>
-            <UserBlock/>
+            <LikeBlock/>
             <Footer/>
         </>
     );

@@ -1,7 +1,29 @@
 import React from "react";
 import styles from './GameBlock.module.scss';
+import {useDispatch, useSelector} from "react-redux";
+import {toggleItem} from "../../redux/slices/likeSlice";
+import {BiHeart} from "react-icons/bi";
+import {apiLoginInstance} from "../../utils/axios";
 
 export const GameCart = ({pk, name, image, price}) => {
+    const dispatch = useDispatch();
+    const isitem = useSelector(state => state.like.items.find(obj => obj.pk === pk));
+
+    const toggleLikeOnClick = async () => {
+        dispatch(toggleItem({pk, name, image, price}));
+        const instance = await apiLoginInstance();
+        if (instance != null) {
+            try {
+                if (!isitem) {
+                    await instance.post("like/like/", {"game": pk});
+                } else {
+                    await instance.delete("like/like/", {data:{"game": pk}});
+                }
+            } catch (e) {
+                console.log("error with like api");
+            }
+        }
+    };
     return (
         <div className={`d-flex justify-content-center container`}>
             <div className={`card p-3 bg-white`}>
@@ -18,8 +40,13 @@ export const GameCart = ({pk, name, image, price}) => {
                     </div>
                 </div>
                 <div className={`d-flex justify-content-between total font-weight-bold mt-4`}>
-                    <box-icon name='heart'></box-icon>
-                    <box-icon name='cart'></box-icon>
+                    <div onClick={toggleLikeOnClick} className={styles.pointer}>
+                        <box-icon type='solid' name='heart' style={!isitem ? {display: "none"} : {}}></box-icon>
+                        <box-icon name='heart' style={isitem ? {display: "none"} : {}}></box-icon>
+                    </div>
+                    <div>
+                        <box-icon name='cart'></box-icon>
+                    </div>
                 </div>
             </div>
         </div>

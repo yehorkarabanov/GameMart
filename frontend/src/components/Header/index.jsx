@@ -3,7 +3,7 @@ import styles from './Header.module.scss';
 import {LoginModal} from "../LoginModal";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {checkTokens} from "../../redux/slices/userSlice";
+import {checkRToken} from "../../redux/slices/userSlice";
 
 export const Header = () => {
     const dispatch = useDispatch();
@@ -17,7 +17,7 @@ export const Header = () => {
 
     useEffect(() => {
         if (user.isLogin) {
-            dispatch(checkTokens());
+            dispatch(checkRToken());
         }
     },[]);
 
@@ -31,7 +31,7 @@ export const Header = () => {
                     <nav className={`${styles.navbar} ${isMobileNavOpen ? styles.navbarMobile : ''}`}>
                         <ul>
                             <li><Link to={"/"} className={`nav-link ${styles.active}`}>Home</Link></li>
-                            <li><Link to={"shop/"} className={`nav-link`}>Shop</Link></li>
+                            <li><Link to={"/shop"} className={`nav-link`}>Shop</Link></li>
                             <li>
                                 <div className={`input-group rounded ${styles.navbarSearch}`}>
                                     <input type="search" id="search" className="form-control" placeholder="Search"
@@ -43,19 +43,19 @@ export const Header = () => {
                             </li>
                             <li>
                                 {user.isLogin ?
-                                    <Link to={"account/"} className={`nav-link`}>{user.userdata.username}</Link>
+                                    <Link to={"/account"} className={`nav-link`}>{user.userdata.username}</Link>
                                     : <button className={`nav-link`}
                                               onClick={handleLoginModalShow}>Login/Register</button>}
 
                             </li>
                             <li>
-                                <Link to={"cart/"} className={`${styles.cart}`}>
+                                <Link to={"/cart"} className={`${styles.cart}`}>
                                     <box-icon name='cart'></box-icon>
                                     <div>12</div>
                                 </Link>
                             </li>
                             <li>
-                                <Link to={"like/"}>
+                                <Link to={"/like"}>
                                     <box-icon name='heart'></box-icon>
                                 </Link>
                             </li>

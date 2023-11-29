@@ -1,0 +1,62 @@
+.myAccount {
+  position: relative;
+  padding: 30px 42px 30px 0;
+  background: rgba(lightgray, 0.4);
+
+  .navPills {
+    padding: 0 30px;
+
+    .navLink {
+      padding: 10px 15px;
+      color: #353535;
+      background: #ffffff;
+      border-radius: 0;
+      border-bottom: 1px solid #dddddd;
+      transition: all .3s;
+      text-decoration: none;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover, &.active {
+        color: #ffffff;
+        background: #353535;
+      }
+
+      i {
+        margin-right: 5px;
+      }
+    }
+
+    .tabContent {
+      padding: 30px;
+
+      table {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 0;
+
+        .thead-dark th {
+          text-align: center;
+          color: #353535;
+          background: #ffffff;
+          border-color: #dddddd;
+          border-bottom: none;
+          vertical-align: middle;
+        }
+
+        td {
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+
+  p {
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+  }
+
+}
