@@ -1,7 +1,7 @@
 import React from "react";
 import styles from './GameBlock.module.scss';
 import {useDispatch, useSelector} from "react-redux";
-import {toggleItem} from "../../redux/slices/likeSlice";
+import {toggleLikeItem} from "../../redux/slices/likeSlice";
 import {BiHeart} from "react-icons/bi";
 import {apiLoginInstance} from "../../utils/axios";
 
@@ -10,7 +10,7 @@ export const GameCart = ({pk, name, image, price}) => {
     const isitem = useSelector(state => state.like.items.find(obj => obj.pk === pk));
 
     const toggleLikeOnClick = async () => {
-        dispatch(toggleItem({pk, name, image, price}));
+        dispatch(toggleLikeItem({pk, name, image, price}));
         const instance = await apiLoginInstance();
         if (instance != null) {
             try {

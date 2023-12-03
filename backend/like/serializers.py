@@ -1,12 +1,12 @@
 from rest_framework import serializers
 from products.models import Product
 from .models import Like
-from products.serializers import ProductSerializer
+from products.serializers import ProductListSerializer
 
 
 class LikeListSerializer(serializers.HyperlinkedModelSerializer):
     user = serializers.ReadOnlyField(source='user.id')
-    game = ProductSerializer()
+    game = ProductListSerializer()
 
     class Meta:
         model = Like

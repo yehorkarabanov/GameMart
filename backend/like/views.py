@@ -22,7 +22,13 @@ class LikeViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
         serializer_class = self.get_serializer_class()
         if isinstance(kwargs.get('data', {}), list):
             kwargs['many'] = True
+        kwargs['context'] = self.get_serializer_context()
         return serializer_class(*args, **kwargs)
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        return context
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {logOut} from "../../redux/slices/userSlice";
 import {clearLike} from "../../redux/slices/likeSlice";
+import {clearCart} from "../../redux/slices/cartSlice";
 
 export const UserBlock = () => {
     const [userBlockSection, setuserBlockSection] = React.useState("");
@@ -11,6 +12,7 @@ export const UserBlock = () => {
     const onClickLogout = () => {
         dispatch(logOut());
         dispatch(clearLike());
+        dispatch(clearCart());
     }
     return (
         <div className={`${styles.myAccount}`}>
