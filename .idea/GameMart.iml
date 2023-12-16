@@ -18,9 +18,12 @@
       <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
       <excludeFolder url="file://$MODULE_DIR$/backend/venv/Lib" />
       <excludeFolder url="file://$MODULE_DIR$/backend/venv/Scripts" />
+      <excludeFolder url="file://$MODULE_DIR$/frontend/node_modules" />
     </content>
+    <content url="file://$MODULE_DIR$/frontend/node_modules" />
     <orderEntry type="jdk" jdkName="Python 3.11 (GameMart)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="node_modules" level="project" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />

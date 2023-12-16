@@ -22,7 +22,6 @@ export const UserBlock = () => {
                         <div className={`nav flex-column ${styles.navPills}`} role="tablist"
                              aria-orientation="vertical">
                             <p className={`${styles.navLink}`}><i className="bi bi-list-columns-reverse"></i>Dashboard</p>
-                            <p className={`${styles.navLink}`}><i className="bi bi-cart"></i>Cart</p>
                             <p className={`${styles.navLink}`}><i className="bi bi-bag-check-fill"></i>Orders</p>
                             <p className={`${styles.navLink}`}><i className="bi bi-credit-card-2-back"></i>Payment Method</p>
                             <p className={`${styles.navLink}`}><i className="bi bi-person"></i>Account Details</p>

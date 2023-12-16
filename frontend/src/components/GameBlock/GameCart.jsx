@@ -1,29 +1,24 @@
 import React from "react";
 import styles from './GameBlock.module.scss';
 import {useDispatch, useSelector} from "react-redux";
-import {toggleLikeItem} from "../../redux/slices/likeSlice";
-import {BiHeart} from "react-icons/bi";
+import {toggleLike, toggleLikeItem} from "../../redux/slices/likeSlice";
 import {apiLoginInstance} from "../../utils/axios";
+import {useNavigate} from "react-router-dom";
+import {addItemToCart, addSingleItemToCart} from "../../redux/slices/cartSlice";
 
 export const GameCart = ({pk, name, image, price}) => {
     const dispatch = useDispatch();
     const isitem = useSelector(state => state.like.items.find(obj => obj.pk === pk));
 
     const toggleLikeOnClick = async () => {
-        dispatch(toggleLikeItem({pk, name, image, price}));
-        const instance = await apiLoginInstance();
-        if (instance != null) {
-            try {
-                if (!isitem) {
-                    await instance.post("like/like/", {"game": pk});
-                } else {
-                    await instance.delete("like/like/", {data:{"game": pk}});
-                }
-            } catch (e) {
-                console.log("error with like api");
-            }
-        }
+        dispatch(toggleLike({pk, name, image, price, isitem}));
     };
+
+    const navigate = useNavigate();
+    const addToCart = async () =>{
+        dispatch(addSingleItemToCart({pk, name, image, price}))
+        navigate('cart/');
+    }
     return (
         <div className={`d-flex justify-content-center container`}>
             <div className={`card p-3 bg-white`}>
@@ -45,7 +40,7 @@ export const GameCart = ({pk, name, image, price}) => {
                         <box-icon name='heart' style={isitem ? {display: "none"} : {}}></box-icon>
                     </div>
                     <div>
-                        <box-icon name='cart'></box-icon>
+                        <box-icon onClick={addToCart} name='cart'></box-icon>
                     </div>
                 </div>
             </div>

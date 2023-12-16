@@ -33,6 +33,12 @@ class ProductListSerializer(serializers.HyperlinkedModelSerializer):
         return None
 
 
+class ProductMinimumSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['pk']
+
+
 class ProductDetailSerializer(serializers.HyperlinkedModelSerializer):
     category = CategorySerializer()
     photos = ProductPhotoSerializer(many=True)

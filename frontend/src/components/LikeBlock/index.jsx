@@ -6,13 +6,21 @@ import {GameCart} from "../GameBlock/GameCart";
 
 export const LikeBlock = () => {
     const like = useSelector(state => state.like.items);
-    const items_display = like.map(obj => <GameCart key={obj.pk} {...obj}/>);
 
     return (
         <div className={`container`}>
-            <div className={styles.gridContainer}>
-                {items_display}
-            </div>
+            {like.length !== 0 ?
+                <div className={styles.Like}>
+                    <h1>Your liked items</h1>
+                    <div className={styles.gridContainer}>
+                        {like.map(obj => <GameCart key={obj.pk} {...obj}/>)}
+                    </div>
+                </div>
+                :
+                <div className={styles.NoLike}>
+                    You don't have any item in your like list.
+                </div>
+            }
         </div>
     );
 }

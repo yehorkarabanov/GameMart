@@ -6,7 +6,8 @@ import {Formik} from "formik";
 import apiInstance, {apiLoginInstance} from "../../utils/axios";
 import {useDispatch, useSelector} from "react-redux";
 import {setTokens} from "../../redux/slices/userSlice";
-import {addManyLikeItems} from "../../redux/slices/likeSlice";
+import {addManyLikeItems, syncLikeWithBackend} from "../../redux/slices/likeSlice";
+import {syncCartWithBackend} from "../../redux/slices/cartSlice";
 
 
 export const LoginModal = ({showLoginModal, setShowLoginModal}) => {
@@ -17,48 +18,6 @@ export const LoginModal = ({showLoginModal, setShowLoginModal}) => {
         setIsButtonCliced(true);
     };
     const dispatch = useDispatch();
-
-    const syncLikeWithBackend = async () => {
-        const instance = await apiLoginInstance();
-        if (instance != null) {
-            try {
-                //fail with img
-                const res = await instance.get("like/like/");
-                await dispatch(addManyLikeItems(res.data));
-            } catch (e) {
-                console.log("error with getting like");
-            }
-            const oldLike = Likes.filter(obj => obj.isNew !== true);
-            if (oldLike.length !== 0) {
-                try {
-                    const res = await instance.post("like/like/", oldLike.map(game => ({game:game.pk})));
-                } catch (e) {
-                    console.log("error with sending like");
-                }
-            }
-        }
-    }
-
-    const syncCartWithBackend = async () => {
-        const instance = await apiLoginInstance();
-        if (instance != null) {
-            try {
-                const res = await instance.get("cart/cart/");
-                await dispatch(addManyLikeItems(res.data));
-            } catch (e) {
-                console.log("error with getting cart");
-            }
-            const oldCart = Cart.filter(obj => obj.isNew !== true);
-            if (oldCart.length !== 0) {
-                try {
-                    const res = await instance.post("like/like/", oldCart.map(game => ({game:game.pk})));
-                } catch (e) {
-                    console.log("error with sending cart");
-                }
-            }
-        }
-    }
-
 
     const loginSchema = yup.object().shape({
         username: yup.string().required("Please input a username"),
@@ -72,8 +31,8 @@ export const LoginModal = ({showLoginModal, setShowLoginModal}) => {
                     });
                     dispatch(setTokens(response.data));
 
-                    await syncLikeWithBackend();
-                    //await syncCartWithBackend();
+                    await dispatch(syncLikeWithBackend());
+                    await dispatch(syncCartWithBackend());
                     return true;
                 } catch (error) {
                     console.log(error);
@@ -115,8 +74,8 @@ export const LoginModal = ({showLoginModal, setShowLoginModal}) => {
                             password: value
                         });
                         dispatch(setTokens(response.data));
-                        await syncLikeWithBackend();
-                        //await syncCartWithBackend();
+                        await dispatch(syncLikeWithBackend());
+                        await dispatch(syncCartWithBackend());
                         setIsButtonCliced(false);
                         return true;
                     } catch (error) {
@@ -299,7 +258,7 @@ export const LoginModal = ({showLoginModal, setShowLoginModal}) => {
                                 Close
                             </Button>
                             <Button variant={`primary`} type={`submit`} onClick={chnageButtonClicked}>
-                                Login
+                                Register
                             </Button>
                         </Modal.Footer>
                     </Form>

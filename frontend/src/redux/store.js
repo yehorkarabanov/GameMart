@@ -10,7 +10,7 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage,
-    blacklist: ['product']
+    // blacklist: ['product']
 };
 
 export const store = configureStore({

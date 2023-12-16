@@ -9,6 +9,7 @@ export const Header = () => {
     const dispatch = useDispatch();
 
     const user = useSelector((state) => state.user);
+    const cart = useSelector(state => state.cart);
 
     const [isMobileNavOpen, setIsMobileNavOpen] = React.useState(false);
     const [showLoginModal, setShowLoginModal] = React.useState(false);
@@ -51,7 +52,7 @@ export const Header = () => {
                             <li>
                                 <Link to={"/cart"} className={`${styles.cart}`}>
                                     <box-icon name='cart'></box-icon>
-                                    <div>12</div>
+                                    <div>{cart.items.length}</div>
                                 </Link>
                             </li>
                             <li>
