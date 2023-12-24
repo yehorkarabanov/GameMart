@@ -1,0 +1,93 @@
+.Product {
+  .FirstRow {
+    display: flex;
+    gap: 5%;
+
+    &:last-child {
+      flex-grow: 2;
+    }
+
+    @media (max-width: 991px) {
+      & {
+        flex-direction: column;
+        align-items: center;
+      }
+      p, h1 {
+        text-align: center;
+      }
+      .BuyButton {
+        justify-content: center;
+      }
+    }
+
+    img {
+      height: 460px;
+      width: 370px;
+      object-fit: cover;
+      border-radius: 5px;
+      border: 1px solid black;
+    }
+
+    h1 {
+      font-weight: 700;
+      margin-right: 5%;
+    }
+
+    p {
+      font-size: 24px;
+    }
+
+    button {
+      margin-right: 5%;
+    }
+
+    .Description {
+      margin-top: 5%;
+      font-size: 20px;
+    }
+
+    h4,svg {
+      align-self: center;
+      margin: 0 !important;
+    }
+  }
+
+  .SecondRow {
+    margin-top: 2%;
+    display: flex;
+    gap: 5%;
+
+    @media (max-width: 1200px) {
+      & {
+        flex-direction: column-reverse;
+        width: 100%;
+        align-items: center;
+      }
+      .About{
+        padding-top: 5%;
+      }
+    }
+
+    .About {
+      width: 370px !important;
+
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+    }
+
+    .Screenshots {
+      width: 768px;
+
+      img {
+        display: block;
+        width: 768px;
+        height: 384px;
+        object-fit: cover;
+      }
+    }
+  }
+}

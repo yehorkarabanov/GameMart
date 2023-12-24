@@ -1,17 +1,24 @@
 .Like {
   position: relative;
   min-height: calc(100vh - 303px);
-  h1{
+
+  h1 {
     text-align: center;
     margin-top: 50px;
     margin-bottom: 50px;
   }
+
   .gridContainer {
     display: grid;
     grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
     grid-template-rows: auto;
     gap: 20px;
     justify-content: space-around;
+
+    a {
+      text-decoration: none !important;
+      color: black !important;
+    }
 
     img {
       width: 251px;
@@ -21,7 +28,7 @@
   }
 }
 
-.NoLike{
+.NoLike {
   text-align: center;
   font-size: 64px;
   padding: 20%;

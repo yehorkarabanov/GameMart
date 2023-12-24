@@ -11,6 +11,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
 
+    name = models.CharField(max_length=100, blank=True, null=True, default=None)
+    last_name = models.CharField(max_length=100, blank=True, null=True, default=None)
+    phone = models.CharField(max_length=100, blank=True, null=True, default=None)
+
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ['email']
 
@@ -18,4 +22,3 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
-

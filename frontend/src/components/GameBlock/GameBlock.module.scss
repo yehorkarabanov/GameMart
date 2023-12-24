@@ -5,6 +5,11 @@
   gap: 20px;
   justify-content: space-around;
 
+  a {
+    text-decoration: none !important;
+    color: black !important;
+  }
+
   img {
     width: 251px;
     height: 251px;
@@ -12,6 +17,6 @@
   }
 }
 
-.pointer{
+.pointer {
   cursor: pointer;
 }

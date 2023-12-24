@@ -12,6 +12,12 @@ export const getProducts = createAsyncThunk('product/getProducts', async (params
     }
 });
 
+export const getProduct = createAsyncThunk('product/getProduct', async (game_slug, {dispatch, getState}) => {
+    const state = getState();
+    const response = await apiInstance.get(`products/product/${game_slug}/`);
+    dispatch(setCurrent(response.data));
+});
+
 const initialState = {
     status: '',//loading, success, failed
     items: [],
@@ -26,6 +32,9 @@ const productSlice = createSlice({
         setProductExpire(state, action) {
             state.expireAt = action.payload;
         },
+        setCurrent(state, action) {
+            state.current = action.payload;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -42,5 +51,5 @@ const productSlice = createSlice({
     },
 });
 
-export const {setProductExpire} = productSlice.actions;
+export const {setProductExpire,setCurrent} = productSlice.actions;
 export default productSlice.reducer;

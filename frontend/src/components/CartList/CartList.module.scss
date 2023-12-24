@@ -7,17 +7,20 @@
   min-height: calc(100vh - 303px);
 }
 
-.Modal{
-  .ModalButtons{
+.Modal {
+  .ModalButtons {
     width: 100%;
-    .BtnClose{
+
+    .BtnClose {
       width: 50%;
     }
-    .BtnClear{
+
+    .BtnClear {
       background: #353535;
     }
   }
-  .ModalText{
+
+  .ModalText {
     text-align: center;
   }
 }
@@ -76,6 +79,8 @@
         display: inline-block;
         text-align: center;
         margin: 0;
+        text-decoration: none !important;
+        color: black !important;
       }
     }
 

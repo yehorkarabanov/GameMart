@@ -3,10 +3,10 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import {apiLoginInstance} from "../../utils/axios";
 
 
-export const toggleLike = createAsyncThunk('like/toggleLike', async ({pk, name, image, price, isitem}, {
+export const toggleLike = createAsyncThunk('like/toggleLike', async ({pk, name, image, price, slug, isitem}, {
     dispatch
 }) => {
-    dispatch(toggleLikeItem({pk, name, image, price}));
+    dispatch(toggleLikeItem({pk, name, image, price, slug}));
     const instance = await apiLoginInstance();
     if (instance != null) {
         try {

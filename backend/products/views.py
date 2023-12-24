@@ -1,6 +1,6 @@
 from rest_framework.viewsets import ReadOnlyModelViewSet
 from .models import Product, Category, ProductGenre
-from .serializers import CategorySerializer, ProductListSerializer, ProductGenreSerializer
+from .serializers import CategorySerializer, ProductListSerializer, ProductGenreSerializer, ProductDetailSerializer
 
 
 class CategoryViewSet(ReadOnlyModelViewSet):
@@ -10,7 +10,13 @@ class CategoryViewSet(ReadOnlyModelViewSet):
 
 # separate list and detail
 class ProductViewSet(ReadOnlyModelViewSet):
-    serializer_class = ProductListSerializer
+    lookup_field = 'slug'
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return ProductListSerializer
+        else:
+            return ProductDetailSerializer
 
     def get_queryset(self):
         queryset = Product.objects.all()

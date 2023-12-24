@@ -4,10 +4,10 @@ import {apiLoginInstance} from "../../utils/axios";
 import {debounce} from "lodash";
 
 export const addSingleItemToCart = createAsyncThunk('cart/addSingleItemToCart', async (
-    {pk, name, image, price}, {dispatch, getState}) => {
+    {pk, name, image, price, slug}, {dispatch, getState}) => {
     const state = getState();
     const isnew = !(state.cart.items.find(obj => obj.pk === pk));
-    dispatch(addItemToCart({pk, name, image, price}));
+    dispatch(addItemToCart({pk, name, image, price, slug}));
     const instance = await apiLoginInstance();
     if (instance != null && isnew) {
         try {
@@ -20,7 +20,7 @@ export const addSingleItemToCart = createAsyncThunk('cart/addSingleItemToCart', 
 
 export const removeSingleItemFromCart = createAsyncThunk('cart/removeSingleItemFromCart', async (
     pk, {dispatch}) => {
-    dispatch(removeItemFromCart(pk));
+    dispatch(removeItemFromCart({pk}));
     const instance = await apiLoginInstance();
     if (instance != null) {
         try {
@@ -85,26 +85,6 @@ export const syncCartWithBackend = createAsyncThunk('cart/syncCartWithBackend', 
         }
     }
 });
-
-// const syncCartWithBackend = async () => {
-//     const instance = await apiLoginInstance();
-//     if (instance != null) {
-//         try {
-//             const res = await instance.get("cart/cart/");
-//             await dispatch(addManyLikeItems(res.data));
-//         } catch (e) {
-//             console.log("error with getting cart");
-//         }
-//         const oldCart = Cart.filter(obj => obj.isNew !== true);
-//         if (oldCart.length !== 0) {
-//             try {
-//                 const res = await instance.post("like/like/", oldCart.map(game => ({game:game.pk})));
-//             } catch (e) {
-//                 console.log("error with sending cart");
-//             }
-//         }
-//     }
-// }
 
 const initialState = {
     items: [],

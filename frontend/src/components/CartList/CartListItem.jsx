@@ -5,8 +5,9 @@ import styles from './CartList.module.scss';
 import React from "react";
 import {changeCartItemAmount, changeSingleItemInCart, removeSingleItemFromCart} from "../../redux/slices/cartSlice";
 import {debounce} from "lodash";
+import {Link} from "react-router-dom";
 
-export const CartListItem = ({pk, name, image, price, amount}) => {
+export const CartListItem = ({pk, name, image, price, amount, slug}) => {
     const dispatch = useDispatch();
 
     const updateCartItemAmount = React.useCallback(
@@ -36,8 +37,10 @@ export const CartListItem = ({pk, name, image, price, amount}) => {
         <tr>
             <td>
                 <div className={`${styles.Img}`}>
-                    <a href="#"><img src={image} alt="Image"/></a>{/*TODO: add link to product*/}
-                    <p>{name}</p>
+                    <Link to={`/product/${slug}`}>
+                        <img src={image} alt="Image"/>
+                        <p>{name}</p>
+                    </Link>
                 </div>
             </td>
             <td>${price}</td>
